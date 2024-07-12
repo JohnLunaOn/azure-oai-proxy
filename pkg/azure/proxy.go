@@ -122,9 +122,10 @@ func makeDirector(remote *url.URL) func(*http.Request) {
 		case strings.HasPrefix(req.URL.Path, "/v1/files"):
 			req.URL.Path = path.Join(fmt.Sprintf("/openai/deployments/%s", deployment), "files")
 		case strings.HasPrefix(req.URL.Path, "/v1/audio/speech"):
-			req.URL.Path = path.Join(fmt.Sprintf("/openai/deployments/%s", "audio"), "speech")
+			req.URL.Path = path.Join(fmt.Sprintf("/openai/deployments/%s", deployment), "audio/speech")
 		case strings.HasPrefix(req.URL.Path, "/v1/audio/transcriptions"):
-			req.URL.Path = path.Join(fmt.Sprintf("/openai/deployments/%s", "audio"), "transcriptions")
+			// TEMP: no deployment for whisper-1, force using whisper
+			req.URL.Path = path.Join(fmt.Sprintf("/openai/deployments/%s", "whisper"), "audio/transcriptions")
 		case strings.HasPrefix(req.URL.Path, "/v1/audio/translations"):
 			req.URL.Path = path.Join(fmt.Sprintf("/openai/deployments/%s", deployment), "translations")
 		default:
